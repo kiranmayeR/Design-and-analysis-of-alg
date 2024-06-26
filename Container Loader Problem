@@ -1,0 +1,59 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+#define MAX_ITEMS 100 // Maximum number of items
+#define MAX_CONTAINERS 100 // Maximum number of containers
+
+int items[MAX_ITEMS]; // Array to store weights of items
+int containers[MAX_CONTAINERS][MAX_ITEMS]; // 2D array to store loaded containers
+int containerCapacity[MAX_CONTAINERS]; // Array to store remaining capacity of containers
+int nItems, nContainers; // Number of items and containers
+
+// Function to load containers using next-fit heuristic
+void loadContainers() {
+    int currentContainer = 0;
+    containerCapacity[currentContainer] = 10; // Adjust capacity of containers as needed
+
+    for (int i = 0; i < nItems; ++i) {
+        if (items[i] > containerCapacity[currentContainer]) {
+            currentContainer++;
+            containerCapacity[currentContainer] = 10; // Adjust capacity of containers as needed
+        }
+        containers[currentContainer][i] = items[i];
+        containerCapacity[currentContainer] -= items[i];
+    }
+
+    nContainers = currentContainer + 1;
+}
+
+// Function to print loaded containers
+void printContainers() {
+    for (int i = 0; i < nContainers; ++i) {
+        printf("Container %d:", i + 1);
+        for (int j = 0; j < nItems && containers[i][j] != 0; ++j) {
+            printf(" %d", containers[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    // Example input
+    nItems = 4;
+    items[0] = 15;
+    items[1] = 10;
+    items[2] = 25;
+    items[3] = 20;
+
+    loadContainers();
+
+    printf("Items to be loaded:\n");
+    for (int i = 0; i < nItems; ++i) {
+        printf("Item %d: Weight %d\n", i + 1, items[i]);
+    }
+
+    printf("\nSolution:\n");
+    printContainers();
+
+    return 0;
+}

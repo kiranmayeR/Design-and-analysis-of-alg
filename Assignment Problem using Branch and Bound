@@ -1,0 +1,34 @@
+#include <stdio.h>
+
+#define N 4 // Example size, adjust according to your problem
+
+// Function prototypes
+void branchAndBound(int costMatrix[N][N]);
+void solveAssignmentProblem(int costMatrix[N][N], int assigned[N], int assignedRow[N], int row, int col, int *minCost);
+
+int main() {
+    int costMatrix[N][N] = {
+        {10, 19, 8, 15},
+        {10, 18, 7, 17},
+        {13, 16, 9, 14},
+        {12, 19, 8, 18}
+    };
+    
+    branchAndBound(costMatrix);
+    
+    return 0;
+}
+
+void branchAndBound(int costMatrix[N][N]) {
+    int assigned[N] = {-1}; // To store assignment of tasks
+    int assignedRow[N] = {0}; // To check if task is assigned to any worker
+    int minCost = 0;
+    
+    solveAssignmentProblem(costMatrix, assigned, assignedRow, 0, 0, &minCost);
+    
+    printf("Minimum cost: %d\n", minCost);
+}
+
+void solveAssignmentProblem(int costMatrix[N][N], int assigned[N], int assignedRow[N], int row, int col, int *minCost) {
+    // Implement your branch and bound algorithm here
+}
